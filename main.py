@@ -1,8 +1,8 @@
 """This module provides CLI commands using argparse and outputs results in table format."""
 
 import argparse
-import tabulate
 import csv
+import tabulate
 
 
 def read_csv(file_name):
@@ -34,7 +34,7 @@ def filter(data, filter_field):
     try:
         value = float(value)
         is_digit = True
-    except TypeError:
+    except (TypeError, ValueError) as e:
         value = str(value)
 
     result = []
@@ -62,8 +62,25 @@ def filter(data, filter_field):
     return result
 
 
-def aggregate(aggregate_field):
-    print(aggregate_field)
+def aggregate(data, aggregate_field):
+    aggr_field, type_aggr = aggregate_field.split("=")
+
+    result = []
+    count = len(data)
+    if type_aggr == "avg":
+        for line in data:
+            result.append(float(line[aggr_field]))
+        return {"avg": round(sum(result) / count, 2)}
+    if type_aggr == "min":
+        for line in data:
+            result.append(float(line[aggr_field]))
+        return {"min": min(result)}
+    if type_aggr == "max":
+        for line in data:
+            result.append(float(line[aggr_field]))
+        return {"max": max(result)}
+    
+    
 
 
 if __name__ == "__main__":
@@ -81,6 +98,7 @@ if __name__ == "__main__":
 
     data = read_csv(file_name=file_name)
     if filter_field is not None:
-        filter(data=data, filter_field=filter_field)
+        data = filter(data=data, filter_field=filter_field)
     if aggregate_field is not None:
-        aggregate(aggregate_field=aggregate_field)
+        data = aggregate(data=data, aggregate_field=aggregate_field)
+    print(data)
