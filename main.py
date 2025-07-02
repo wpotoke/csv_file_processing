@@ -1,41 +1,86 @@
 """This module provides CLI commands using argparse and outputs results in table format."""
+
 import argparse
 import tabulate
 import csv
 
 
-# reader
-
-
-def read(file_name):
-
-    """without csv lib"""
-
-    with open(file=file_name, mode="r", encoding="utf-8") as file:
-        lines = file.readlines()
-        fieldnames = [field.strip() for field in lines[0].split(",")]
-        data = [field.strip().split(",") for field in lines[1:]]
-
-        print(fieldnames)
-        print(data)
-
 def read_csv(file_name):
-
-    """with csv lib"""
+    """reader with csv lib"""
 
     with open(file=file_name, mode="r", encoding="utf-8") as csvfile:
         reader = list(csv.reader(csvfile, delimiter=","))
         fieldnames = reader[0]
         data = reader[1:]
 
-        print(fieldnames)
-        print(data)
+        data = [
+            {fieldnames[j]: data[i][j] for j in range(len(fieldnames))}
+            for i in range(len(data))
+        ]
+
+        return data
+
+
+def filter(data, filter_field):
+    allowed_operators = ["<", ">", "="]
+    is_digit = False
+
+    index_operator = [
+        filter_field.find(oper) for oper in allowed_operators if oper in filter_field
+    ][0]
+    operator = filter_field[index_operator]
+    field, value = filter_field.split(operator)
+
+    try:
+        value = float(value)
+        is_digit = True
+    except TypeError:
+        value = str(value)
+
+    result = []
+    for line in data:
+        if is_digit:
+            if operator == "<":
+                if float(line[field]) < value:
+                    result.append(line)
+            if operator == ">":
+                if float(line[field]) > value:
+                    result.append(line)
+            if operator == "=":
+                if float(line[field]) == value:
+                    result.append(line)
+        else:
+            if operator == "<":
+                if line[field] < value:
+                    result.append(line)
+            if operator == ">":
+                if line[field] > value:
+                    result.append(line)
+            if operator == "=":
+                if line[field] == value:
+                    result.append(line)
+    return result
+
+
+def aggregate(aggregate_field):
+    print(aggregate_field)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+
     parser.add_argument("--file", type=str, required=True, help="file")
+    parser.add_argument("--where", default=None, type=str, help="filter")
+    parser.add_argument("--aggregate", default=None, type=str, help="aggregate")
+
     args = parser.parse_args()
+
     file_name = args.file
-    read_csv(file_name=file_name)
-    print()
-    read(file_name=file_name)
+    filter_field = args.where
+    aggregate_field = args.aggregate
+
+    data = read_csv(file_name=file_name)
+    if filter_field is not None:
+        filter(data=data, filter_field=filter_field)
+    if aggregate_field is not None:
+        aggregate(aggregate_field=aggregate_field)
