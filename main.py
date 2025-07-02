@@ -2,7 +2,7 @@
 
 import argparse
 import csv
-import tabulate
+from tabulate import tabulate
 
 
 def read_csv(file_name):
@@ -70,16 +70,21 @@ def aggregate(data, aggregate_field):
     if type_aggr == "avg":
         for line in data:
             result.append(float(line[aggr_field]))
-        return {"avg": round(sum(result) / count, 2)}
+        return [{"avg": round(sum(result) / count, 2)}]
     if type_aggr == "min":
         for line in data:
             result.append(float(line[aggr_field]))
-        return {"min": min(result)}
+        return [{"min": min(result)}]
     if type_aggr == "max":
         for line in data:
             result.append(float(line[aggr_field]))
-        return {"max": max(result)}
-    
+        return [{"max": max(result)}]
+
+
+def pretty_print(data):
+    table = [field.values() for field in data]
+    headers = [i for i in data[0]]
+    print(tabulate(table, headers, tablefmt="pretty"))
     
 
 
@@ -101,4 +106,4 @@ if __name__ == "__main__":
         data = filter(data=data, filter_field=filter_field)
     if aggregate_field is not None:
         data = aggregate(data=data, aggregate_field=aggregate_field)
-    print(data)
+    pretty_print(data)
