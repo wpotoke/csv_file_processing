@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
+from mixins.mixin_eror.no_data_mixin import NoDataMixin
 
 
-class BaseOrderBy(ABC):
+class BaseOrderBy(ABC, NoDataMixin):
 
     def check_type(self, field: dict[str, str | float], field_order: str) -> None:
         try:

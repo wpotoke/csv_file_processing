@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Callable
+from mixins.mixin_eror.no_data_mixin import NoDataMixin
 
-
-class BaseFilter(ABC):
+class BaseFilter(ABC, NoDataMixin):
 
     IS_DIGIT = False
 

@@ -1,13 +1,9 @@
 from abc import ABC, abstractmethod
+from mixins.mixin_eror.no_data_mixin import NoDataMixin
 
 
-class BasePrint(ABC):
+class BasePrint(ABC, NoDataMixin):
 
     @abstractmethod
     def print(self, data: list[dict[str, str | float]]) -> None:
         """Выводит данные в консоль."""
-
-    def check_items(self, data):
-        if not data:
-            raise ValueError("No data to print: the data object is empty. Check your params of filter or order")
-        

@@ -8,6 +8,7 @@ class AggregateMin(BaseAggregate):
     ) -> list[dict[str, float | int]]:
         """Вычисляет минимальное значение по указанному полю."""
 
+        super().check_items(data)
         result = []
         count = len(data)
 

@@ -9,6 +9,7 @@ class FilterLT(BaseFilter):
         """Фильтрует строки, где значение поля меньше заданного."""
 
         super().determine_type(value)
+        super().check_items(data)
         if self.IS_DIGIT:
             return self._apply_condition(
                 data, filter_field, float(value), lambda x, y: float(x) < y

@@ -8,6 +8,7 @@ class AggregateMax(BaseAggregate):
     ) -> list[dict[str, float | int]]:
         """Вычисляет максимальное значение по указанному полю."""
 
+        super().check_items(data)
         result = []
         count = len(data)
 

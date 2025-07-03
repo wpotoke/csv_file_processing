@@ -9,6 +9,7 @@ class FilterGT(BaseFilter):
         """Фильтрует строки, где значение поля больше заданного."""
 
         super().determine_type(value)
+        super().check_items(data)
         if self.IS_DIGIT:
             return self._apply_condition(
                 data, filter_field, float(value), lambda x, y: float(x) > y

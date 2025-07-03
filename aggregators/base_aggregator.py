@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
+from mixins.mixin_eror.no_data_mixin import NoDataMixin
 
 
-class BaseAggregate(ABC):
+class BaseAggregate(ABC, NoDataMixin):
 
     @abstractmethod
     def aggregate(

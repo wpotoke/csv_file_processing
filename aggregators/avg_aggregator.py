@@ -7,7 +7,8 @@ class AggregateAvg(BaseAggregate):
         self, data: list[dict[str, str | float]], aggregate_field: str
     ) -> list[dict[str, float | int]]:
         """Вычисляет среднее значение по указанному полю."""
-
+        
+        super().check_items(data)
         result = []
         count = len(data)
 

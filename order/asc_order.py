@@ -7,7 +7,8 @@ class OrderByAsc(BaseOrderBy):
         self, data: list[dict[str, str | float]], field_order: str
     ) -> list[dict[str, str | float]]:
         """Сортирует данные по возрастанию по указанному полю."""
-
+        
+        super().check_items(data)
         for field in data:
             super().check_type(field, field_order)
         return sorted(data, key=lambda field: float(field[field_order]))
