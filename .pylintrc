@@ -1,21 +1,22 @@
+[MASTER]
+ignore=venv
+jobs=1
+load-plugins=
+persistent=yes
+
 [MESSAGES CONTROL]
-disable = missing-function-docstring,
-        missing-module-docstring,
-        missing-class-docstring,
-        import-outside-toplevel,
-        attribute-defined-outside-init,
-        line-too-long,
-        invalid-str-returned,
-        no-member,
-        unused-argument,
-        redefined-builtin,
-        unused-variable,
-        unused-import,
-        bad-indentation,
-        trailing-whitespace,
-        raise-missing-from,
-        invalid-name,
-        redefined-outer-name,
-        missing-final_newline,
-        ungrouped-imports,
-        unknown-option-value,
+disable =
+    missing-docstring,
+    too-few-public-methods,
+    too-many-arguments,
+    too-many-locals
+
+[FORMAT]
+max-line-length=100
+
+[DESIGN]
+max-args=5
+max-locals=15
+
+[REPORTS]
+output-format = colorized

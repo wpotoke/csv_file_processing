@@ -1,5 +1,5 @@
 import pytest
-from printer.table_pretty_printer import TablePrettyPrint
+from printer.table_printer import TablePrettyPrint
 
 
 def test_pretty_print_empty_data():

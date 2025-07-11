@@ -1,4 +1,5 @@
-from readers.csv_reader import CsvReader 
+from reader.csv_reader import CsvReader
+
 
 def test_csv_reader_reads_correctly(sample_csv_file):
     data = CsvReader().read(sample_csv_file)

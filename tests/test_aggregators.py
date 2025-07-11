@@ -1,7 +1,5 @@
-from aggregators.avg_aggregator import AggregateAvg
-from aggregators.max_aggregator import AggregateMax
-from aggregators.min_aggregator import AggregateMin
-from readers.csv_reader import CsvReader
+from operations.aggregators import AggregateAvg, AggregateMax, AggregateMin
+from reader.csv_reader import CsvReader
 import pytest
 
 

@@ -1,7 +1,5 @@
-from filters.gt_filter import FilterGT
-from filters.lt_filter import FilterLT
-from filters.eq_filter import FilterEq
-from readers.csv_reader import CsvReader
+from operations.filters import FilterGT, FilterLT, FilterEq
+from reader.csv_reader import CsvReader
 
 DATA = [
     {"name": "item1", "price": "100"},

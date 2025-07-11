@@ -1,12 +1,6 @@
-import pytest
-from filters.eq_filter import FilterEq
-from filters.gt_filter import FilterGT
-from filters.lt_filter import FilterLT
-from aggregators.avg_aggregator import AggregateAvg
-from aggregators.min_aggregator import AggregateMin
-from aggregators.max_aggregator import AggregateMax
-from order.asc_order import OrderByAsc
-from order.desc_order import OrderByDesc
+from operations.filters import FilterEq, FilterGT, FilterLT
+from operations.aggregators import AggregateAvg, AggregateMin, AggregateMax
+from operations.orders import OrderByAsc, OrderByDesc
 
 DATA = [
     {"name": "iphone", "price": "999", "rating": "4.9"},
@@ -71,7 +65,7 @@ def test_chain_lt_max_order():
     aggregated = AggregateMax().aggregate(filtered, "price")
     ordered = OrderByDesc().order_by(filtered, "rating")
     assert aggregated == [{"max": 799.0}]
-    assert [r["name"] for r in ordered] == ['galaxy', 'poco', 'redmi']
+    assert [r["name"] for r in ordered] == ["galaxy", "poco", "redmi"]
 
 
 def test_chain_eq_min_order():

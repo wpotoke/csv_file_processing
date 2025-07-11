@@ -1,8 +1,7 @@
 import pytest
 
-from order.asc_order import OrderByAsc
-from order.desc_order import OrderByDesc
-from readers.csv_reader import CsvReader
+from operations.orders import OrderByAsc, OrderByDesc
+from reader.csv_reader import CsvReader
 
 
 def test_order_by_asc(sample_csv_file):
